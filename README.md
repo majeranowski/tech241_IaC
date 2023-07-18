@@ -12,6 +12,8 @@ What is it?
 
 A configuration manager tool used in DevOps. It is simple. It is agent-less. No dependencies needed for it to run. Lightweight.
 
+Ansible is an open-source automation tool that provides a simple, agentless, and powerful platform for managing and automating IT infrastructure and configuration management tasks. It is designed to streamline and simplify the process of deploying, configuring, and orchestrating systems and applications.
+
 ansible default folder - to make changes in configuration file
 
 cd /etc/ansible/
