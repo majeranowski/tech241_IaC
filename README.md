@@ -18,6 +18,8 @@ cd /etc/ansible/
 
 # Ansible Architecture
 
+![](images/ansible.png)
+
 
 * Step 1: Let's start with creating EC2 instances on AWS. 1 for ansible controller and 2nd and 3rd for agend nodes for app and db.
    - All Of them should have SSH security group rules and Ubuntu 18.04 (because it has python already preinstalled (the only dependencies for Ansible))
@@ -40,14 +42,16 @@ sudo apt upgrade -y
  sudo apt update -y
 ```
 
-* Step 4: Manually SSH in to app and db VMs (agent nodes) from our controller VM and run update and upgrade commands to make agents available to connect
+* Step 4: go back to controller VM and create a .pem file in ~/.ssh/ folder called tech241.
+
+* Step 5: Manually SSH in to app and db VMs (agent nodes) from our controller VM and run update and upgrade commands to make agents available to connect
 
 ```bash
 sudo apt update -y
 sudo apt upgrade -y
 ``` 
 
-* Step 5: go back to controller VM and create a .pem file in ~/.ssh/ folder called tech241.
+
 
 * Step 6: Go to default directory for ansible to configure hosts file that wil allow connection between controller and agents
 
