@@ -250,9 +250,51 @@ NODE and PM2 Playbook:
     args:
       chdir: "app"
 
+  - name: Stop PM2 processes
+    shell: pm2 kill
+
   - name: Start the Node.js app
     command: pm2 start app.js
     args:
       chdir: "app/"
+
+
+```
+
+NGINX and Reverse Proxy playbook:
+
+```bash
+# YAML file start with --- thre dashes
+# Why playbooks
+# Create a playbook to install nginx in web node
+---
+
+# Which host to perform the task
+- hosts: web
+
+# see the logs by gathering facts
+  gather_facts: yes
+# admin access (sudo)
+  become: true
+# add the instructions  -  install nginx on web agent
+  tasks:
+  - name: Installing nginx
+    apt: pkg=nginx state=present
+# check the status of nginx - ensure is actively running
+
+# configure reverse proxy (change the line in default config file )
+
+  - name: Customize Nginx default configuration file
+    lineinfile:
+      path: /etc/nginx/sites-available/default
+      regexp: '^(\s*try_files.*)$'
+      line: '        proxy_pass http://localhost:3000;'
+
+# restart nginx
+
+  - name: Restart Nginx service
+    service:
+      name: nginx
+      state: restarted
 
 ```
