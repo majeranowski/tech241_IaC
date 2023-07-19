@@ -114,6 +114,8 @@ we need sudo permission
 
 ## Scripting in Ansible
 
+![](./images/ansible1.png)
+
 Web-node:
 install nginx
 node security group must allow port 80
@@ -190,17 +192,67 @@ HOSTS FILE:
 
 [web]
 
-ec2-instance ansible_host=34.242.248.77 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/tech241.pem
+web-instance ansible_host=34.242.248.77 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/tech241.pem
 
 [db]
 
-ec2-instance ansible_host=54.246.248.58 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/tech241.pem
+db-instance ansible_host=54.246.248.58 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/tech241.pem
 
 
 ## [webservers]
 ## alpha.example.org
 ## beta.example.org
-## 192.168.1.100
 ## 192.168.1.110
+
+```
+
+NODE and PM2 Playbook:
+
+* Make sure to add port 3000 on app instance
+
+
+```bash
+---
+
+# Which host to perform the task
+- hosts: web
+
+# see the logs by gathering facts
+  gather_facts: yes
+# admin access (sudo)
+  become: true
+# add the instructions  -  install node 12 with pm2 and run the app
+  tasks:
+  - name: Installing node v 12the gog key for nodejs
+    apt_key:
+      url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+      state: present
+
+  - name: Add NodeSource repository
+    apt_repository:
+      repo: "deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main"
+      state: present
+
+  - name: Install Node.js
+    apt:
+      name: nodejs
+      state: present
+      update_cache: yes
+
+  - name: Install PM2
+    npm:
+      name: pm2
+      global: yes
+      state: present
+
+  - name: Install app dependencies
+    command: npm install
+    args:
+      chdir: "app"
+
+  - name: Start the Node.js app
+    command: pm2 start app.js
+    args:
+      chdir: "app/"
 
 ```
