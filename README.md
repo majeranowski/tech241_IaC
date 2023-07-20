@@ -298,3 +298,47 @@ NGINX and Reverse Proxy playbook:
       state: restarted
 
 ```
+
+MONGODB Playbook
+
+```bash
+---
+
+- hosts: db
+
+  gather_facts: yes
+
+  become: true
+
+  tasks:
+
+  - name: Installing Mongodb
+    apt: pkg=mongodb state=present
+
+  - name: Modify mongod.conf to change bindIp
+    lineinfile:
+      path: /etc/mongodb.conf
+      regexp: '^bind_ip'
+      line: 'bind_ip = 0.0.0.0'
+
+  - name: Restart Mongodb
+    service:
+      name: mongodb
+      state: restarted
+
+  - name: starting and enabling Mongodb
+    service:
+      name: mongodb
+      state: started
+      enabled: yes
+
+
+```
+
+In the App VM I have created ENV Variable with DB host:
+
+```bash
+sudo nano /etc/environment
+DB_HOST=DB_HOST=mongodb://<IP ADDRESS>:27017/posts
+```
+
