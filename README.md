@@ -339,6 +339,6 @@ In the App VM I have created ENV Variable with DB host:
 
 ```bash
 sudo nano /etc/environment
-DB_HOST=DB_HOST=mongodb://<IP ADDRESS>:27017/posts
+DB_HOST=mongodb://<IP ADDRESS>:27017/posts
 ```
 
