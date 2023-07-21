@@ -547,3 +547,6 @@ With Terraform, you have better control, consistency, and scalability of your cl
 ```
 terraform version
 ```
+
+![](./images/tf.png)
+
