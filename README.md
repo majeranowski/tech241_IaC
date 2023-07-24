@@ -603,3 +603,11 @@ resource "aws_instance" "app_instance" {
 
 * Step 5: `terraform apply` - running our script to create ec2. AWS will ask if we have permissions. We have added env variables with AWS keys before.
 
+# Terraform script for isolated VPC
+
+![](./images/vpc_tf.png)
+
+Availability zones:
+app instance: eu-west-1a
+db instance: eu-west-1b
+
