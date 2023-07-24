@@ -571,7 +571,7 @@ terraform version
 # terraform init
 
 
-# provider name
+## provider name
 provider "aws"{
        # where in aws
        region = "eu-west-1"
