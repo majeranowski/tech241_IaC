@@ -550,3 +550,56 @@ terraform version
 
 ![](./images/tf.png)
 
+**Terraform** is responsible for orchestration and creating an infrastructure (ec2 instances etc.).
+
+**Ansible** from the other hand is responsible for managing and configuration.
+
+## Creating ec2 instance using Terraform
+
+![](./images/tf_script.png)
+
+* Step 1: Create a file main.tf where we will put our script to launch ec2 Instance on AWS
+
+* Step 2: `terraform init`
+
+* Step 3: In the main.tf add required info like region, ami id for Ubuntu 18.04, name etc.
+
+```bash
+# launch an ec2 instance
+# which cloud - aws
+# terraform download required dependencies
+# terraform init
+
+
+# provider name
+provider "aws"{
+       # where in aws
+       region = "eu-west-1"
+
+}
+# Launch an ec2 in Ireland
+
+resource "aws_instance" "app_instance" {
+
+#which machine/OS version etc. AMI-id
+  ami = "ami-0943382e114f188e8"
+
+# what type of instance
+  instance_type = "t2.micro"
+
+# is the public IP required
+  associate_public_ip_address = true
+
+# what would you like to name it
+  tags = {
+       Name = "tech241-krzysztof-terraform-app"
+  }
+}
+
+
+```
+
+* Step 4: `terraform plan` - command to preview the changes that terraform will apply.
+
+* Step 5: `terraform apply` - running our script to create ec2. AWS will ask if we have permissions. We have added env variables with AWS keys before.
+
