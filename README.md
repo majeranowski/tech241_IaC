@@ -610,3 +610,7 @@ resource "aws_instance" "app_instance" {
 Availability zones:
 app instance: eu-west-1a
 db instance: eu-west-1b
+
+# AWS all services with TF PLAN
+
+![](./images/aws_asg_img.png)
